@@ -1,7 +1,9 @@
 class Hand:
 	def __init__(self, cards):
 		self.Rank = self.SplitRanks(cards)
+		self.Rank.sort(reverse=True)
 		self.Suits = self.SplitSuits(cards)
+		self.Suits.sort()
 
 	def SplitRanks(self, cards):
 		ranks = []

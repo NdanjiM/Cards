@@ -12,5 +12,15 @@ class HandClassTestCase(unittest.TestCase):
 		hand = HandClass.Hand(cards)
 		self.assertEqual(set(hand.Suits), set(["S","C","H","D","S"]))
 
+	def test_handclass_rank_successful_sorted(self):
+		cards = {"AS","10C","10H","3D","3S"}
+		hand = HandClass.Hand(cards)
+		self.assertEqual(hand.Rank,["A","3","3","10","10"])
+
+	def test_handclass_suit_succesfful_sorted(self):
+		cards = {"AS","10C","10H","3D","3S"}
+		hand = HandClass.Hand(cards)
+		self.assertEqual(hand.Suits, ["C","D","H","S","S"])
+
 if __name__ == '__main__':
 	unittest.main()
