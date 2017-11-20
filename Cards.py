@@ -26,7 +26,7 @@ def CheckHand(suits, ranks):
 
 
 	#check for 5 or 4 of a kind
-	if "Jk" in ranking and len(uniqueRanks)==2 and (4 in numberRankOccurences):
+	if "JK" in ranking and len(uniqueRanks)==2 and (4 in numberRankOccurences):
 		return "Five of a kind"
 	elif "JK" not in ranking and len(uniqueRanks)==2 and (4 in numberRankOccurences):
 		return "Four of a kind"
@@ -36,6 +36,27 @@ def CheckHand(suits, ranks):
 		return "Straight flush"
 	elif len(uniqueSuits)==1 and not IsSequential(ranking):
 		return "Flush"
+
+	#check full house
+	if len(uniqueRanks)==2 and (3 in numberRankOccurences):
+		return "Full house"
+
+	#chek if Straight
+	if len(uniqueSuits)>1 and IsSequential(ranking):
+		return "Straight"
+
+	#check if 3 of a kind
+	if len(uniqueRanks)==3 and (3 in numberRankOccurences):
+		return "Three of a kind"
+
+	#check if 2 or 1 pair
+	if len(uniqueRanks)==3 and (2 in numberRankOccurences) and len(set(numberRankOccurences))==2:
+		return "Two pair"
+	elif len(uniqueRanks)>3 and (2 in numberRankOccurences) and len(set(numberRankOccurences))>=2:
+		return "One pair"
+
+	#default high card
+	return "High card"
 		
 def IsSequential(ranks):
 	isSequen = True
@@ -83,16 +104,21 @@ def IsNumber(rank):
 
 
 def main():
-  userInput = input("Enter cards (comma seperated):")
-  cards = userInput.split(',')
+	print("Enter all five cards comma seperated eg. KH,JH,8C,7D,4S JKR for Joker")
+	print("Enter end to stop")
+	userInput = input("Enter cards (comma seperated):").upper()
+	while userInput!="END":
+		cards = userInput.split(',')
 
-  hand = HandClass.Hand(cards)
+		hand = HandClass.Hand(cards)
 
-  print(hand.Rank)
+		print(hand.Rank)
 
-  result = CheckHand(hand.Suits, hand.Rank)
+		result = CheckHand(hand.Suits, hand.Rank)
 
-  print(result)
+		print(result)
+
+		userInput = input("Enter cards (comma seperated):").upper()
   
 if __name__== "__main__":
   main()
